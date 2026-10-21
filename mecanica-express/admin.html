@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Admin · Mecanica Express</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#111827">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body{background:var(--surface-2);padding-bottom:0}
+    .pn-top{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff}
+    .pn-top-in{display:flex;align-items:center;gap:12px;max-width:960px;margin:0 auto;padding:10px 16px}
+    .pn-top img{height:34px;width:auto;padding:3px 8px;border-radius:8px;background:#fff}
+    .pn-top b{flex:1;font-size:1rem}
+    .pn-top .btn{min-height:40px;border-color:rgba(255,255,255,.4);color:#fff;background:transparent}
+    .pn-wrap{max-width:960px;margin:0 auto;padding:16px 16px 48px}
+    .pn-note{margin-bottom:14px;padding:10px 14px;border-radius:var(--radius-sm);background:#fff4cc;color:#5c4400;font-size:.88rem;line-height:1.45}
+    .pn-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin-bottom:16px;border-radius:12px;background:var(--surface-3)}
+    .pn-tabs button{min-height:44px;border:0;border-radius:9px;background:transparent;font:inherit;font-weight:700;color:var(--muted);cursor:pointer}
+    .pn-tabs button[aria-selected=true]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(17,24,39,.12)}
+    .pn-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+    .pn-stat{padding:12px;border-radius:var(--radius);background:#fff;border:1px solid var(--line)}
+    .pn-stat b{display:block;font-size:1.6rem;font-weight:800;font-stretch:112%;line-height:1;color:var(--ink)}
+    .pn-stat span{font-size:.82rem;color:var(--muted)}
+    .pn-filters{display:flex;gap:8px;overflow-x:auto;margin:0 -16px 14px;padding:0 16px 2px;scrollbar-width:none}
+    .pn-filters::-webkit-scrollbar{display:none}
+    .pn-filters button{flex:none;min-height:40px;padding:0 14px;border:1.5px solid var(--line);border-radius:999px;background:#fff;font:inherit;font-weight:700;font-size:.9rem;color:var(--ink);cursor:pointer}
+    .pn-filters button[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:#fff}
+    .pn-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+    .bk-card{padding:16px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);border-left:4px solid var(--line)}
+    .bk-card[data-status=noua]{border-left-color:#2b6ff0}
+    .bk-card[data-status=confirmata]{border-left-color:var(--wa)}
+    .bk-card[data-status=finalizata]{border-left-color:#8a94a6;opacity:.8}
+    .bk-card[data-status=anulata]{border-left-color:var(--accent);opacity:.65}
+    .bk-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+    .bk-when{font-weight:800;font-stretch:108%;color:var(--ink);font-size:1.05rem}
+    .bk-who{margin-top:2px;font-weight:700;color:var(--text)}
+    .pill{flex:none;padding:4px 10px;border-radius:999px;font-size:.78rem;font-weight:800;background:var(--surface-2);color:var(--muted)}
+    .pill.noua{background:#e8f0ff;color:#1c4fbf}.pill.confirmata{background:#e3f6ea;color:#0f6b38}.pill.anulata{background:var(--accent-soft);color:#9b0610}
+    .bk-card dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:12px 0 0;font-size:.92rem}
+    .bk-card dt{color:var(--muted)}
+    .bk-card dd{margin:0;color:var(--text);min-width:0;overflow-wrap:anywhere}
+    .bk-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .bk-acts .btn{min-height:42px;padding:0 .9em;font-size:.92rem}
+    .pn-empty{padding:32px 16px;border-radius:var(--radius);background:#fff;text-align:center;color:var(--muted)}
+    .pn-form{display:grid;gap:14px;padding:18px;border-radius:var(--radius);background:#fff;border:1px solid var(--line)}
+    .pn-form h2{font-size:1.2rem}
+    .pn-form .hint{display:block;font-size:.84rem;color:var(--muted)}
+    .pn-saved{color:var(--wa);font-weight:700}
+    .pn-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .of-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+    .of-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2)}
+    .of-row .of-name{grid-column:1 / -1}
+    .of-row input,.of-row select{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;font:inherit;font-size:.95rem;color:var(--ink)}
+    .of-row label{display:grid;gap:4px;font-size:.8rem;font-weight:700;color:var(--muted)}
+    .of-foot{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .of-prev{font-weight:800;color:var(--accent-text)}
+    .of-del{min-height:40px;padding:0 12px;border:0;border-radius:8px;background:transparent;font:inherit;font-weight:700;color:var(--accent-text);cursor:pointer}
+    @media (min-width:700px){.of-row{grid-template-columns:2fr 1.2fr 1fr 1.2fr}.of-row .of-name{grid-column:auto}}
+    .gate{display:grid;place-items:center;min-height:100dvh;padding:16px}
+    .gate form{display:grid;gap:14px;width:min(360px,100%);padding:26px 22px;border-radius:16px;background:#fff;box-shadow:var(--shadow)}
+    .gate img{height:44px;width:auto;justify-self:start}
+    .gate h1{font-size:1.5rem}
+    .gate input{font-size:1.1rem}
+    .gate-err{color:var(--accent-text);font-weight:700;font-size:.92rem}
+    @media (min-width:700px){.pn-list{grid-template-columns:1fr 1fr}.pn-stats{grid-template-columns:repeat(3,minmax(0,180px))}}
+  </style>
+  <script src="admin.js" defer></script>
+</head>
+<body>
+  <!-- Password gate: the server checks the password (ADMIN_PIN) on every request. -->
+  <section class="gate" id="gate">
+    <form id="gate-form" novalidate>
+      <img src="assets/logo.png" width="388" height="132" alt="Mecanica Express">
+      <h1>Panou administrare</h1>
+      <div class="field"><label for="gate-in">Parolă</label><input id="gate-in" type="password" autocomplete="current-password" maxlength="64" required></div>
+      <p class="gate-err" id="gate-err" role="alert" hidden></p>
+      <button class="btn btn-primary btn-lg" type="submit">Intră</button>
+          </form>
+  </section>
+
+  <div id="app" hidden>
+    <header class="pn-top">
+      <div class="pn-top-in">
+        <img src="assets/logo.png" width="388" height="132" alt="">
+        <b>Admin</b>
+        <button class="btn" type="button" id="reload" aria-label="Reîmprospătează programările">↻</button>
+        <a class="btn" href="./" target="_blank" rel="noopener">Site</a>
+        <button class="btn" type="button" id="logout">Ieșire</button>
+      </div>
+    </header>
+    <main class="pn-wrap">
+      <p class="pn-note">Programările făcute pe site apar aici automat, de pe orice telefon. Lista se actualizează singură la 30 de secunde.</p>
+      <div class="pn-tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" aria-controls="tab-bk" id="t-bk">Programări</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tab-ct" id="t-ct">Conținut site</button>
+      </div>
+
+      <section id="tab-bk" role="tabpanel" aria-labelledby="t-bk">
+        <div class="pn-stats" id="stats"></div>
+        <div class="pn-filters" id="filters" role="group" aria-label="Filtru"></div>
+        <ul class="pn-list" id="list"></ul>
+        <div class="pn-tools">
+          <button class="btn btn-outline" type="button" id="csv">Descarcă tabel (CSV)</button>
+          <button class="btn btn-quiet" type="button" id="demo-data">Adaugă programări de exemplu</button>
+        </div>
+      </section>
+
+      <section id="tab-ct" role="tabpanel" aria-labelledby="t-ct" hidden>
+        <form class="pn-form" id="content-form">
+          <h2>Ce se schimbă pe site</h2>
+          <div class="field"><label for="c-announce">Anunț în partea de sus</label><input id="c-announce" name="announce" maxlength="140" placeholder="Ex.: Sâmbătă, 1 noiembrie, suntem închiși."><small class="hint">Gol = fără anunț.</small></div>
+          <h2 style="margin-top:6px">Oferte</h2>
+          <p class="hint" style="margin-top:-8px">Scrii lucrarea și alegi cum apare prețul. Oferta dispare singură de pe site după data de expirare.</p>
+          <ul class="of-list" id="offers"></ul>
+          <button class="btn btn-outline" type="button" id="add-offer">+ Adaugă ofertă</button>
+          <div class="field"><label for="c-offernote">Text sub oferte</label><input id="c-offernote" name="offerNote" placeholder="Pentru autoturisme. Ofertele se referă exclusiv la manoperă…"></div>
+          <div class="bk-acts"><button class="btn btn-primary btn-lg" type="submit">Salvează</button><span class="pn-saved" id="saved" role="status"></span></div>
+        </form>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

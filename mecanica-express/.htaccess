@@ -1,0 +1,76 @@
+Options -Indexes
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# Old WordPress URLs -> sections of the new one-page site
+RewriteRule ^service-auto-constanta-autorizat-rar/?$ / [R=301,L,NE]
+RewriteRule ^service-auto-constanta-programari-online-si-telefonice/?$ /#programare [R=301,L,NE]
+RewriteRule ^preturi-manopera-reparatii-mecanica-auto-constanta/?$ /#preturi [R=301,L,NE]
+RewriteRule ^termeni-si-conditii-service-auto-constanta/?$ /#contact [R=301,L,NE]
+RewriteRule ^despre-noi-reparatii-mecanica-auto-constanta-autorizat-rar/?$ /#despre [R=301,L,NE]
+RewriteRule ^angajari-mecanic-electrician-auto-constanta/?$ /#contact [R=301,L,NE]
+RewriteRule ^servicii-de-reparatii-mecanica-auto-constanta-autorizat-rar/?$ /#servicii [R=301,L,NE]
+RewriteRule ^tractari-auto-si-asistenta-rutiera-constanta/?$ /#contact [R=301,L,NE]
+RewriteRule ^thank-you-candidatura/?$ /#contact [R=301,L,NE]
+RewriteRule ^thank-you-programare/?$ /#programare [R=301,L,NE]
+RewriteRule ^portal-service/?$ / [R=301,L,NE]
+RewriteRule ^servicii-reparatii-mecanica-auto-constanta/?$ /#servicii [R=301,L,NE]
+RewriteRule ^service-reparatii-mecanic-auto-constanta-autorizat-rar/?$ /#despre [R=301,L,NE]
+RewriteRule ^qsa-header-elementor/?$ / [R=301,L,NE]
+RewriteRule ^qsa-footer-elementor/?$ / [R=301,L,NE]
+RewriteRule ^contact-quick-service-auto-constanta/?$ /#contact [R=301,L,NE]
+RewriteRule ^diagnoza-auto/?$ /#servicii [R=301,L,NE]
+RewriteRule ^schimb-distributie/?$ /#servicii [R=301,L,NE]
+RewriteRule ^schimb-ambreiaj/?$ /#servicii [R=301,L,NE]
+RewriteRule ^reparatii-frane/?$ /#servicii [R=301,L,NE]
+RewriteRule ^reparatii-suspensie/?$ /#servicii [R=301,L,NE]
+RewriteRule ^schimb-ulei/?$ /#servicii [R=301,L,NE]
+RewriteRule ^incarcare-ac/?$ /#servicii [R=301,L,NE]
+RewriteRule ^diagnoza-auto-computerizata/?$ /#servicii [R=301,L,NE]
+RewriteRule ^diagnoza-si-stergere-erori/?$ /#servicii [R=301,L,NE]
+RewriteRule ^revizii-si-schimb-ulei/?$ /#servicii [R=301,L,NE]
+RewriteRule ^schimb-filtre/?$ /#servicii [R=301,L,NE]
+RewriteRule ^mecanica-generala/?$ /#servicii [R=301,L,NE]
+RewriteRule ^reparatii-sistem-franare/?$ /#servicii [R=301,L,NE]
+RewriteRule ^reparatii-directie-si-suspensie/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-amortizoare/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-articulatii-bielete-bucse/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-distributie-lant-curea/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-pompa-de-apa/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-si-reparatii-ambreiaje/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-kit-ambreiaj-volanta/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-cutii-de-viteze/?$ /#servicii [R=301,L,NE]
+RewriteRule ^curatare-egr/?$ /#servicii [R=301,L,NE]
+RewriteRule ^curatare-galerie-admisie/?$ /#servicii [R=301,L,NE]
+RewriteRule ^eliminare-scurgeri-ulei/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-garnitura-de-chiulasa/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-motoare/?$ /#servicii [R=301,L,NE]
+RewriteRule ^reparatii-sistem-racire/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-radiator/?$ /#servicii [R=301,L,NE]
+RewriteRule ^service-intretinere-climatizare-auto/?$ /#servicii [R=301,L,NE]
+RewriteRule ^incarcare-verificare-instalatie-ac/?$ /#servicii [R=301,L,NE]
+RewriteRule ^inlocuire-turbosuflanta/?$ /#servicii [R=301,L,NE]
+RewriteRule ^2026/01/14/hello-world/?$ / [R=301,L,NE]
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+AddType font/woff2 .woff2
+AddType text/calendar .ics
+
+<IfModule mod_headers.c>
+Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>
